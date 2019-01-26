@@ -1,0 +1,36 @@
+{% extends "./home.html" %}
+
+{% block response %}
+<h2>The response</h2>
+
+<table>
+    <tr>
+        <td>Request URL</td>
+        <td>{{ request_url }}</td>
+    </tr>
+    <tr>
+        <td>Response status</td>
+        <td>{{ status_code }}</td>
+    </tr>
+    <tr>
+        <td>Response type: </td>
+        <td>{{ response_type }}</td>
+    </tr>
+    <tr>
+        <td>Response body</td>
+        <td>
+            <textarea name="" id="re-body" cols="30" rows="10">
+                {{ response_text }}
+            </textarea>
+        </td>
+    </tr>
+
+</table>
+
+<script>
+    var data = {{response_text}}
+    var textJson = JSON.stringify(data, undefined, 4);
+    $('#re-body').text(textedJson);
+</script>
+
+{% endblock %}

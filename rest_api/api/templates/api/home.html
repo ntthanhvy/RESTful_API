@@ -1,0 +1,61 @@
+{% load static %}
+
+<head>
+    <title>THE API of Oxford Dictionary</title>
+    <!-- <link rel="stylesheet" href="static/style.css"> -->
+</head>
+
+<body>
+
+    <h1>The API of Oxford Dictionaries</h1>
+
+    <h2>The request</h2>
+
+    {% if error_mess %}<p><strong>{{ error_mess }}</strong></p>{% endif %}
+
+    <form action="{% url 'api:result' %}" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Choose API</td>
+                <td>
+                    <select name='api' value="Entries">
+                        {% for api in api_list %}
+                        <option value="{{ api }}">{{ api }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Choose response type: </td>
+                <td>
+                    <input list="type" name="type">
+                    <datalist id="type">
+                        {% for type_cont in re_type %}
+                        <option value="{{ type_cont }}">
+                        {% endfor %}
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Choose sorce language: </td>
+                <td>
+                    <select name="language" value="en">
+                        {% for lang in list_lang %}
+                        <option value="{{ lang }}">{{ lang }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>word_id </td>
+                <td><input type="text" name="word_id"></td>
+            </tr>
+        </table>
+        <input type="submit" value="SUBMIT">
+    </form>
+    
+    {% block response %}
+    {% endblock %}
+
+</body>
